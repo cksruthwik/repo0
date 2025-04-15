@@ -1,0 +1,92 @@
+/* Sidebar main container: Positioning and transition */
+.sidebar {
+  position: absolute; top: 55px; left: 10px; width: 220px; z-index: 100;
+  opacity: 0; visibility: hidden; transform: translateY(-10px) scale(0.95);
+  transform-origin: top left; transition: opacity 0.2s ease-out, visibility 0s linear 0.2s, transform 0.2s ease-out;
+  background: none; border: none; padding: 0; pointer-events: none;
+}
+.sidebar.open {
+  opacity: 1; visibility: visible; transform: translateY(0) scale(1);
+  transition: opacity 0.2s ease-out, visibility 0s linear 0s, transform 0.2s ease-out;
+  pointer-events: auto;
+}
+
+/* Inner container for visual styling */
+.sidebar-button-container {
+    /* Light theme default */
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    border-radius: 16px;
+    padding: 15px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: background-color 0.4s ease, border-color 0.4s ease; /* Add transition */
+}
+
+/* Sidebar Buttons: Base style */
+.sidebar-button {
+  display: flex; align-items: center; width: 100%; padding: 10px 14px;
+  border: 1px solid transparent;
+  /* Light theme default */
+  background-color: #FDF4EC;
+  border-radius: 12px; text-align: left; font-size: 0.95em;
+  color: #7C5A3E;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer; white-space: nowrap; box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+.sidebar-button:hover { /* Light theme hover */
+  background-color: #FAEADF; border-color: #F5DBC4; box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+}
+.sidebar-button.active { /* Light theme active */
+  background-color: #FFEAD6; color: #C77730; font-weight: 500;
+  border: 1px solid #FDDAB4; box-shadow: 0 2px 5px rgba(216, 137, 65, 0.1);
+}
+.sidebar-button.active .sidebar-icon { color: #C77730; }
+.sidebar-icon { /* Base icon styles */
+  margin-right: 12px; font-size: 1.25em; display: flex; align-items: center;
+  justify-content: center; width: 20px; color: #B08D71; transition: color 0.2s ease;
+}
+.sidebar-label { flex-grow: 1; line-height: 1.3; }
+
+
+/* --- Dark Theme Overrides for Sidebar --- */
+.dark-theme .sidebar-button-container {
+    background-color: #2c3e50; /* Dark background for sidebar */
+    border-color: #4a5a6a; /* Dark border */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); /* Darker shadow */
+}
+
+.dark-theme .sidebar-button {
+    background-color: #3a4c5e; /* Darker button background */
+    border-color: #4a5462; /* Slightly lighter border than container */
+    color: #c0c5ce; /* Light text */
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.dark-theme .sidebar-button:hover {
+    background-color: #4a5a6a; /* Lighter hover background */
+    border-color: #5e6d80;
+    color: #ffffff; /* White text on hover */
+}
+
+.dark-theme .sidebar-button.active {
+    background-color: #55468a; /* Dark purple active background */
+    color: #e0d7ff; /* Light purple text */
+    border-color: #7a6ac7; /* Purple border */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.dark-theme .sidebar-icon {
+    color: #9098a5; /* Default dark icon color */
+}
+
+.dark-theme .sidebar-button:hover .sidebar-icon {
+    color: #ffffff; /* White icon on hover */
+}
+
+.dark-theme .sidebar-button.active .sidebar-icon {
+    color: #e0d7ff; /* Light purple icon when active */
+}

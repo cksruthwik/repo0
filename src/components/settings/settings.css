@@ -1,0 +1,94 @@
+/* Settings.css */
+.settings-container {
+  padding: 15px; display: flex; flex-direction: column;
+  gap: 12px; /* Slightly smaller gap */
+  flex-grow: 1;
+  overflow-y: auto; /* Allow scroll if content overflows */
+}
+/* Title removed from JSX, so no style needed */
+/* .settings-container h3 { ... } */
+
+.setting-group {
+  display: flex; flex-direction: column; gap: 8px;
+  background-color: #FDFDFD; padding: 15px; border-radius: 12px; /* Match reference rounding */
+  border: 1px solid #f0f0f0;
+}
+.setting-label {
+  font-weight: 600; margin-bottom: 8px; color: #555; font-size: 0.8em; /* Smaller label */
+  text-transform: uppercase; letter-spacing: 0.5px; /* Match reference */
+  display: flex; align-items: center; gap: 6px;
+}
+.label-icon { color: #888; font-size: 0.9em; }
+
+/* Language Model Options */
+.model-option {
+  padding: 10px 12px; border: 1px solid #eee; border-radius: 8px; margin-bottom: 8px;
+  cursor: pointer; background-color: #fff; transition: border-color 0.2s ease, background-color 0.2s ease; position: relative;
+}
+.model-option:hover { border-color: #ccc; background-color: #fcfcfc; }
+.model-option.selected { border-color: #8a7ff5; background-color: #F4F2FF; }
+.model-name { font-weight: 500; display: flex; justify-content: space-between; align-items: center; color: #333; font-size: 0.95em; }
+.model-tag {
+    background-color: #e6e0ff; color: #5a4bd7; font-size: 0.7em; padding: 3px 10px; /* Adjust padding */
+    border-radius: 12px; /* More rounded tag */ font-weight: 500; /* Less bold */
+    display: inline-flex; align-items: center; gap: 4px; margin-left: 8px;
+    border: 1px solid #d9ceff; /* Add subtle border */
+}
+.model-tag svg { font-size: 0.9em; display: none; /* Hide star icon if not needed */ }
+.model-info { font-size: 0.85em; color: #999; /* Lighter grey info text */ margin-top: 4px; text-align: left; }
+.model-radio { position: absolute; opacity: 0; width: 0; height: 0; }
+
+/* Other Settings Buttons Section */
+.other-settings { background-color: transparent; border: none; padding: 0; gap: 10px; }
+/* Setting Button uses global .secondary-action-button */
+.secondary-action-button {
+    /* Ensure styles match reference image */
+    padding: 10px 15px; /* Adjust padding */
+    background-color: #ffffff;
+    border: 1px solid #eee; /* Lighter border */
+    border-radius: 8px;
+    font-size: 0.95em;
+    color: #444;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+.secondary-action-button:hover { background-color: #f8f8f8; border-color: #e0e0e0; }
+.secondary-action-button .setting-icon { font-size: 1.2em; /* Slightly larger icon */ color: #888; }
+
+/* Theme Toggle Styles */
+/* Removed empty ruleset as it inherits styles from .setting-group */
+.theme-toggle-button { width: 100%; justify-content: center; /* Center content */ }
+.theme-toggle-button svg { margin-right: 8px; font-size: 1.1em; }
+
+/* API Key Section Styles Removed */
+
+/* Save Button Styles Removed */
+
+.status-message { margin-top: 10px; text-align: center; font-size: 0.9em; color: #333; }
+
+/* --- Dark Theme Overrides --- */
+/* Add these within Settings.css or keep in App.css */
+.dark-theme .settings-container h3 { color: #f0f0f0; }
+.dark-theme .setting-group:not(.other-settings),
+.dark-theme .theme-toggle-group { background-color: #3a4c5e; border-color: #4a5a6a; }
+.dark-theme .setting-label { color: #a0a8b4; } /* Lighter label */
+.dark-theme .model-option,
+.dark-theme .setting-button, /* Targets History/Advanced/Theme buttons */
+.dark-theme .setting-input { background-color: #313842; border-color: #4a5462; color: #e0e0e0; }
+.dark-theme .model-option:hover,
+.dark-theme .setting-button:hover { background-color: #404854; border-color: #5a6472; }
+.dark-theme .model-option.selected { border-color: #8a7ff5; background-color: #3b325f; }
+.dark-theme .model-name { color: #e0e0e0; }
+.dark-theme .model-tag { background-color: #4a3d7a; color: #c3baff; border-color: #6a5bcd; }
+.dark-theme .model-info { color: #a0a8b4; }
+.dark-theme .label-icon { color: #a0a0a0; }
+.dark-theme .secondary-action-button .setting-icon { color: #a0a0a0; }
+.dark-theme .status-message { color: #c0c5ce; }
+
+.dark-theme .model-option:hover {
+  background-color: #404854;
+  border-color: #5a6472;
+}
+.dark-theme .secondary-action-button:hover { /* Covers History, Advanced, Theme buttons */
+  background-color: #404854;
+  border-color: #5a6472;
+}

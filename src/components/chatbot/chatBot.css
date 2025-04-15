@@ -1,0 +1,210 @@
+/* ChatBot Container: Flex column */
+.chatbot-container {
+  display: flex; flex-direction: column; flex-grow: 1;
+  height: 100%; background-color: transparent; overflow: hidden;
+}
+
+/* Content Area: Takes space, allows scrolling */
+.chat-content-area {
+    flex-grow: 1; display: flex; flex-direction: column;
+    overflow-y: auto; position: relative;
+}
+
+/* == Initial Prompt Styles == */
+.initial-prompt-container { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 15% 20px 20px 20px; box-sizing: border-box; }
+
+.initial-prompt-container h2 { margin: 0 0 8px 0; font-size: 1.4em; font-weight: 700; color: #333; width: 100%; text-align: center; }
+.initial-prompt-container p { margin: 0 0 30px 0; font-size: 1.0em; color: #333; font-weight: 600; line-height: 1.4; width: 100%; text-align: center; }
+.initial-suggestions { display: flex; flex-direction: column; gap: 10px; align-items: center; width: 100%; max-width: 75%; }
+.suggestion-button { display: flex; align-items: center; justify-content: flex-start; text-align: left; width: 100%; background-color: #ffffff; border: 1px solid #EAEAEA; color: #444; font-size: 0.9em; font-weight: 500; padding: 10px 14px; border-radius: 10px; cursor: pointer; transition: background-color 0.2s, box-shadow 0.2s, border-color 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.05); gap: 10px; }
+.suggestion-button:hover { background-color: #f8f8f8; border-color: #e0e0e0; box-shadow: 0 2px 5px rgba(0,0,0,0.07); }
+.suggestion-icon { font-size: 1.2em; color: #888; flex-shrink: 0; }
+.initial-loading { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+.initial-loading .message-bubble { background-color: #f8f8f8; color: #999; }
+/* == End Initial Prompt Styles == */
+
+
+/* == Start Conversation Styles == */
+.message-list {
+  flex-grow: 1; display: flex; flex-direction: column;
+  gap: 5px; /* Reduced gap */
+  padding: 15px 15px 10px 15px;
+}
+
+/* Container for message + actions */
+.message-container {
+    display: flex; position: relative; margin-bottom: 8px; width: 100%;
+}
+.message-container.user { justify-content: flex-end; }
+.message-container.bot { justify-content: flex-start; }
+
+/* Message Bubble Styles */
+.message { display: flex; max-width: 85%; align-items: flex-end; position: relative; }
+.message-container.user .message { margin-left: auto; margin-right: 35px; /* Space for icons */ }
+.message-container.bot .message { margin-right: auto; }
+
+.message-bubble { padding: 9px 14px; border-radius: 16px; word-wrap: break-word; box-shadow: 0 1px 1.5px rgba(0,0,0,0.07); line-height: 1.45; font-size: 0.95em; display: flex; flex-direction: column; overflow: hidden; }
+.message.user.user-prompt-style .message-bubble { background-color: #FFEAD6; border: 1px solid #FDDAB4; color: #C77730; border-bottom-right-radius: 4px; margin-left: auto; }
+.message.user:not(.user-prompt-style) .message-bubble { background-color: #E9E9EB; color: #222; border-bottom-right-radius: 4px; margin-left: auto; }
+.message.bot .message-bubble { background-color: #F9F9F9; color: #333; border: 1px solid #f0f0f0; border-bottom-left-radius: 4px; }
+
+.summary-content-scrollable { max-height: 160px; overflow-y: auto; padding-right: 8px; margin-right: -8px; }
+.summary-content-scrollable p { margin: 0; padding: 0; text-align: left; }
+
+.message.bot.typing .message-bubble { animation: typing-indicator 1.5s infinite; color: #999; background-color: #f0f0f0; }
+@keyframes typing-indicator { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+
+/* User Message Action Icons */
+.user-message-actions, .bot-message-actions {
+    position: absolute; right: 5px; /* Adjust position */
+    bottom: 5px; /* Adjust position */
+    display: flex; flex-direction: column; gap: 4px;
+    opacity: 0; transition: opacity 0.2s ease-in-out; pointer-events: none;
+}
+.message-container.user:hover .user-message-actions,
+.message-container.bot:hover .bot-message-actions {
+    opacity: 1; pointer-events: auto;
+}
+.bot-message-actions {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  left : 0px;
+}
+
+
+.user-action-button {
+    background-color: rgba(230, 230, 230, 0.7); backdrop-filter: blur(2px);
+    border: 1px solid rgba(0,0,0,0.05); color: #666; border-radius: 50%;
+    width: 24px; height: 24px; padding: 0; display: flex; align-items: center;
+    justify-content: center; font-size: 0.75em; cursor: pointer; box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+.user-action-button:hover { background-color: rgba(210, 210, 210, 0.9); color: #333; }
+.last-bot-actions-container {
+  display: block; /* Change to block to ensure it takes full width below */
+  width: 100%; /* Ensure full width */
+  padding-left: 0; /* Align with message list padding start */
+  margin-top: 5px;
+  margin-bottom: 5px; /* Add space below suggestions */
+  box-sizing: border-box; /* Include padding in width calculation */
+}
+
+/* Summary Actions (Edit/Like/Dislike) */
+.summary-actions {
+  /* Removed align-self */
+  margin-left: 0px; /* Align left within the container */
+  margin-top: 8px; /* Space above actions */
+  margin-bottom: 8px; /* Space below actions if suggestions follow */
+  /* Keep other styles */
+  padding-top: 8px; border-top: 1px dashed #ddd; display: flex; gap: 10px; width: fit-content;
+}
+.action-button { background: none; border: none; color: #777; font-size: 0.85em; cursor: pointer; padding: 4px 6px; display: flex; align-items: center; gap: 5px; border-radius: 4px; }
+.action-button:hover { color: #333; background-color: #f0f0f0; }
+.action-button svg { font-size: 1.1em; }
+
+/* Suggested Questions */
+.suggested-questions-area {
+  align-self: flex-start; /* Align block left like bot message */
+  width: auto; /* Fit content */
+  max-width: calc(100% - 30px); /* Limit width relative to padding */
+  margin: 8px 0 5px 0; /* T R B L - No left margin needed */
+  padding-top: 5px; /* Reduced top padding */
+  /* border-top: 1px solid #eee; Optional */
+}
+.suggested-questions {
+display: flex;
+flex-direction: column; /* Stack vertically */
+gap: 8px;
+align-items: flex-start; /* Keep buttons aligned left */
+}
+.suggestion-button-followup { background-color: #ffffff; border: 1px solid #E0E0E0; color: #333; font-size: 0.9em; padding: 8px 12px; border-radius: 8px; cursor: pointer; transition: background-color 0.2s, box-shadow 0.2s, border-color 0.2s; box-shadow: 0 1px 2px rgba(0,0,0,0.05); text-align: left; width: auto; max-width: 100%; display: flex; align-items: center; gap: 8px; }
+.suggestion-button-followup:hover { background-color: #f5f5f5; border-color: #ccc; box-shadow: 0 2px 4px rgba(0,0,0,0.07); }
+.suggestion-button-followup .suggestion-icon { font-size: 1.2em; color: #888; flex-shrink: 0; }
+/* == End Conversation Styles == */
+
+
+/* --- Footer Styles --- */
+.chat-footer {
+  padding: 8px 12px 10px 12px; /* Keep */
+  flex-shrink: 0; border-top: 1px solid #EFEFEF;
+  background-color: rgba(255, 255, 255, 0.8); backdrop-filter: blur(3px);
+  position: relative;
+}
+
+
+/* Quick Actions Menu Styles */
+.quick-actions-menu {
+    position: absolute; bottom: calc(100% - 1px); /* Position above footer, overlap border */
+    left: 15px; right: 15px; background-color: #ffffff;
+    border: 1px solid #e0e0e0; border-bottom: none;
+    border-radius: 12px 12px 0 0; box-shadow: 0 -4px 10px rgba(0,0,0,0.08);
+    padding: 10px 0; z-index: 20; display: flex; flex-direction: column;
+    animation: slide-up 0.3s ease-out;
+}
+@keyframes slide-up { from { transform: translateY(20%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.quick-actions-header { font-size: 0.75em; font-weight: 600; color: #888; text-transform: uppercase; padding: 0px 15px 8px 15px; border-bottom: 1px solid #eee; margin-bottom: 8px; }
+.quick-action-button { background: none; border: none; text-align: left; padding: 8px 15px; font-size: 0.95em; color: #333; cursor: pointer; border-radius: 0; }
+.quick-action-button:hover { background-color: #f5f5f5; }
+
+.page-context-toggle-container { display: flex; align-items: center; justify-content: space-between; background-color: #F8F8F8; padding: 8px 12px; border-radius: 10px; margin-bottom: 10px; width: 100%; box-sizing: border-box; }
+.page-context-label { font-size: 0.9em; color: #555; margin-right: 10px; }
+.toggle-switch-wrapper { display: flex; align-items: center; gap: 8px; }
+.info-icon { cursor: help; color: #aaa; font-size: 1.2em; display: flex; align-items: center; }
+.info-icon:hover { color: #666; }
+.switch { position: relative; display: inline-block; width: 38px; height: 20px; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 20px; }
+.slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 2px; bottom: 2px; background-color: white; transition: .4s; border-radius: 50%; }
+input:checked + .slider { background-color: #6A45C1; }
+input:focus + .slider { outline: 2px solid #6A45C1; }
+input:checked + .slider:before { transform: translateX(18px); }
+
+.input-area {
+  display: flex; align-items: center; gap: 2px; /* Even Tighter gap */
+  background-color: #ffffff;
+  padding: 4px 4px 4px 6px; /* Keep small padding */
+  border-radius: 12px; border: 1px solid #EAEAEA;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.06); width: 100%; box-sizing: border-box;
+}
+/* Input Icons - Make smaller */
+.input-icons-left { display: flex; align-items: center; gap: 0px; padding-right: 2px; }
+.icon-button {
+  background: none; border: none; color: #b0b0b0; /* Lighter initial color */ cursor: pointer;
+  font-size: 0.9em; /* SMALLER icon size */
+  padding: 4px; /* Smaller padding */
+  line-height: 1; border-radius: 50%; display: flex;
+  align-items: center; justify-content: center; transition: color 0.2s, background-color 0.2s;
+}
+.icon-button:hover:not(:disabled) { color: #666; background-color: #f0f0f0; }
+.icon-button:disabled { color: #d0d0d0; cursor: not-allowed; }
+/* Removed empty ruleset as it was unnecessary */
+/* Removed empty ruleset as it was unnecessary */
+
+/* Input Field - Increase height */
+.prompt-input {
+  flex-grow: 1; border: none; outline: none; background: transparent;
+  padding: 14px 6px; /* INCREASED vertical padding MORE */
+  font-size: 1em; color: #333;
+}
+.prompt-input::placeholder { color: #b0b0b0; }
+
+/* Send Button - Keep small size */
+.send-button {
+  background-color: #F0F0F0; color: #b0b0b0; border: none; border-radius: 50%;
+  width: 32px; height: 32px; font-size: 1.1em; line-height: 1; display: flex;
+  align-items: center; justify-content: center; flex-shrink: 0;
+  transition: background-color 0.2s ease, color 0.2s ease; cursor: not-allowed;
+  margin-left: 4px;
+}
+.send-button.enabled { background-color: #CBCBCB; color: #808080; cursor: pointer; }
+.send-button.enabled:hover { background-color: #B0B0B0; color: #FFFFFF; }
+/* --- Dark Theme Overrides --- */
+.dark-theme .quick-actions-menu { background-color: #3a4c5e; border-color: #4a5a6a; box-shadow: 0 -4px 10px rgba(0,0,0,0.2); }
+.dark-theme .quick-actions-header { color: #a0a8b4; border-bottom-color: #4a5a6a; }
+.dark-theme .quick-action-button { color: #e0e0e0; }
+.dark-theme .quick-action-button:hover { background-color: #4a546a; }
+.dark-theme .quick-action-trigger.active { background-color: #555; color: #fff; }
+/* Removed empty ruleset as it was unnecessary */
+.dark-theme .user-action-button { background-color: rgba(60, 70, 80, 0.7); border-color: rgba(255,255,255,0.1); color: #aaa; }
+.dark-theme .user-action-button:hover { background-color: rgba(80, 90, 100, 0.9); color: #eee;}
+/* ... keep other dark theme overrides ... */

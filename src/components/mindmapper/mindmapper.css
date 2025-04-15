@@ -1,0 +1,63 @@
+/* Main container */
+.mindmapper-container {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  flex-grow: 1;
+  box-sizing: border-box;
+  height: 100%;
+  overflow: hidden; /* Container shouldn't scroll */
+}
+
+/* Heading */
+.mindmapper-container h3 {
+  color: #444; font-weight: 500; margin: 0 0 5px 0;
+  text-align: center; flex-shrink: 0;
+}
+
+/* Update Button */
+.update-button { width: 80%; max-width: 250px; flex-shrink: 0; }
+
+/* Status text */
+.update-status {
+  font-size: 0.9em; color: #555; margin: 0;
+  min-height: 1.2em; font-style: italic; flex-shrink: 0;
+}
+
+/* React Flow Visualization Area */
+.mindmap-display-area {
+  border: 1px solid #eee; background-color: #fdfdfd; border-radius: 8px;
+  width: 100%; flex-grow: 1; position: relative;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+}
+
+/* --- React Flow Specific Styles --- */
+.react-flow-canvas { background-color: #f8f9fa; }
+.react-flow__node {
+    background: #fff; border: 1px solid #b1b1b7; border-radius: 6px;
+    padding: 8px 12px; font-size: 0.9em; color: #333;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1); min-width: 100px; text-align: center;
+}
+.react-flow__node-input, .react-flow__node-output { background: #e6f7ff; border-color: #91d5ff; }
+.react-flow__node-input { border-radius: 20px; }
+.react-flow__node.selected { box-shadow: 0 0 0 2px #6A45C1; border-color: #6A45C1; }
+.react-flow__edge path { stroke: #adb5bd; stroke-width: 1.5; }
+.react-flow__edge.animated path { stroke-dasharray: 5; animation: dashdraw 0.5s linear infinite; }
+.react-flow__edge.selected path { stroke: #6A45C1; }
+.react-flow__arrowhead path { fill: #adb5bd; }
+.react-flow__edge.selected .react-flow__arrowhead path { fill: #6A45C1; }
+@keyframes dashdraw { from { stroke-dashoffset: 10; } }
+.react-flow__attribution { font-size: 10px; background: rgba(240, 240, 240, 0.7); padding: 2px 4px; border-radius: 3px; }
+.react-flow__controls { box-shadow: 0 1px 4px rgba(0,0,0,0.15); }
+.react-flow__controls button { background-color: white; border-bottom: 1px solid #eee; }
+.react-flow__controls button:hover { background-color: #f4f4f4; }
+.react-flow__controls button svg { fill: #666; }
+/* --- End React Flow Styles --- */
+
+/* Informational text at the bottom */
+.info-text {
+  font-size: 0.85em; color: #888; text-align: center;
+  margin-top: auto; padding-top: 10px; flex-shrink: 0;
+}
