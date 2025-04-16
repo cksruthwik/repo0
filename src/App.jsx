@@ -105,6 +105,11 @@ function App() {
         </div>
         <div className="header-right">
           <div className="window-controls">
+            <span onClick={() => window.open('https://www.dummyadmin.com', '_blank')}
+                title="Export" 
+                style={{ cursor: 'pointer' }}>
+                📤
+              </span>
             <span onClick={resetChat} title="New Chat" style={{ cursor: 'pointer' }}><IoChatbox /></span>
             <span onClick={() => window.close()} title="Close" style={{ cursor: 'pointer' }}><IoClose /></span>
           </div>

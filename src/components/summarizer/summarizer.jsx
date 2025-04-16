@@ -771,35 +771,7 @@ function Summarizer() {
   //   if (question.includes("math tutor")) return "ChatGPT is likely used in the custom math tutor example as the core conversational engine, providing explanations, generating practice problems, offering step-by-step guidance, and adapting to the student's learning pace based on their input.";
   //   return `Could not find a specific answer for "${question}" in this simulation. Further details might be needed.`;
   // };
-  const getAnswerForQuestion = async (question) => {
-    try {
-      const url = await new Promise((resolve, reject) => {
-        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-          const currentTab = tabs?.[0];
-          if (!currentTab?.url) {
-            return reject(new Error("Page URL not found."));
-          }
-          resolve(currentTab.url);
-        });
-      });
-  
-      const response = await fetch('http://localhost:8000/qa', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url, question }),
-      });
-  
-      if (!response.ok) {
-        throw new Error(`QA API error: ${response.statusText}`);
-      }
-  
-      const data = await response.json();
-      return data.answer || "No answer returned from the API.";
-    } catch (error) {
-      console.error("Error fetching answer:", error);
-      return "An error occurred while fetching the answer.";
-    }
-  };
+
   // --- Handlers ---
   const handleSummarize = async () => {
     console.log("Summarizer: [handleSummarize] Start.");
@@ -885,7 +857,7 @@ function Summarizer() {
         </div>
       )}
  
-      {(summary || (!isLoading && suggestedQuestions.length === 0 && !Object.values(answers).some(a => a))) && (
+      {/* {(summary || (!isLoading && suggestedQuestions.length === 0 && !Object.values(answers).some(a => a))) && (
         <div className="summarizer-suggestion-area">
           <button
             className="suggestion-button-followup"
@@ -895,7 +867,7 @@ function Summarizer() {
             <IoChatbubbleEllipsesOutline className="suggestion-icon" /> Suggest questions ?
           </button>
         </div>
-      )}
+      )} */}
  
       {suggestedQuestions.length > 0 && (
         <div className="questions-list-container">

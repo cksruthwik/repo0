@@ -230,6 +230,7 @@ import { FaMicrophone, FaEdit, FaThumbsUp, FaThumbsDown, FaRegCopy } from 'react
 import { GrAttachment } from 'react-icons/gr';
 import { IoSend, IoChatbubbleEllipsesOutline } from 'react-icons/io5';
 import { BsSlashLg } from "react-icons/bs";
+import ReactMarkdown from 'react-markdown';
 
 const coeusLogoPath = '/icons/coeus-logo-purple.png';
 
@@ -399,19 +400,7 @@ function ChatBot({ setActiveView, VIEWS }) {
     try {
       const pageUrl = await fetchActiveTabUrl();
   
-      if (lowerInput.includes("summarize this page")) {
-        // Hit summarize endpoint
-        const summarizeRes = await fetch('http://localhost:8000/summarize', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ url: pageUrl, content: "" })
-        });
-        const summarizeData = await summarizeRes.json();
-        response.text = summarizeData.summary;
-        response.showSuggestions = true;
-        response.suggestions = ["Suggest questions?"];
-  
-      } else if (lowerInput.includes("suggest questions?")) {
+      if(lowerInput.includes("suggest questions?")) {
         // Hit questions endpoint to get dynamic questions
         const questionsRes = await fetch('http://localhost:8000/questions', {
           method: 'POST',
@@ -475,7 +464,9 @@ function ChatBot({ setActiveView, VIEWS }) {
             <h2 className="initial-heading" style={{ fontSize: '1.6em' }}>Ask our Coeus anything!</h2>
             <p className="initial-description" style={{ fontSize: '1.05em' }}>An AI-powered intelligent assistant</p>
             <div className="initial-suggestions">
-              <button className="suggestion-button" onClick={() => handleSuggestionClick("Summarize this page")}>Summarize this page</button>
+              <button className="suggestion-button" onClick={() => setActiveView(VIEWS.SUMMARIZER)}>
+                Summarize this page
+              </button>
               <button className="suggestion-button" onClick={() => handleSuggestionClick("Suggest questions?")}>Suggest questions?</button>
             </div>
           </div>
@@ -484,7 +475,9 @@ function ChatBot({ setActiveView, VIEWS }) {
             {messages.map((msg) => (
               <div key={msg.id} className={`message-container ${msg.sender}`}>
                 <div className={`message ${msg.sender}`}>
-                  <div className="message-bubble">{msg.text}</div>
+                  <div className="message-bubble">
+                    <ReactMarkdown>{msg.text}</ReactMarkdown>
+                  </div>
                 </div>
                 {msg.sender === 'bot' && !isLoading && (
                   <div className="bot-message-actions">
@@ -519,25 +512,6 @@ function ChatBot({ setActiveView, VIEWS }) {
       </div>
 
       <div className="chat-footer">
-        <div className="page-context-toggle-container">
-          <label htmlFor="pageContextToggleSwitch" className="page-context-label">
-            Shape answers based on page's content
-          </label>
-          <div className="toggle-switch-wrapper">
-            <span className="info-icon" title="Info"><IoInformationCircleOutline /></span>
-            <label className="switch">
-              <input
-                type="checkbox"
-                id="pageContextToggleSwitch"
-                checked={shapeBasedOnPage}
-                onChange={(e) => setShapeBasedOnPage(e.target.checked)}
-                disabled={isLoading}
-              />
-              <span className="slider round"></span>
-            </label>
-          </div>
-        </div>
-
         <div className="input-area">
           {showQuickActions && (
             <div className="quick-actions-menu">
