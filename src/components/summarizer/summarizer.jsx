@@ -675,6 +675,7 @@ import './Summarizer.css';
 // --- Import Icons ---
 import { FaInfoCircle, FaEdit, FaThumbsUp, FaThumbsDown, FaCopy } from 'react-icons/fa'; // Header info, Summary Actions + Copy
 import { IoChatbubbleEllipsesOutline } from 'react-icons/io5'; // Suggestion button icon
+import ReactMarkdown from 'react-markdown';
  
 // Utility: Read a cookie by name (not used now, kept as-is)
 function getCookie(name) {
@@ -825,10 +826,10 @@ function Summarizer() {
  
   return (
     <div className="summarizer-container">
-      <div className="page-info-header">
+      {/* <div className="page-info-header">
         <span>Llama 3.38B by Meta</span>
         <FaInfoCircle className="info-icon-header" title="Model Information" />
-      </div>
+      </div> */}
  
       <button onClick={handleSummarize} disabled={isLoading} className="summarize-button primary-action-button">
         {isLoading && !summary && suggestedQuestions.length === 0 && !Object.values(answers).some(a => a) ? 'Summarizing...' : 'Summarize this page'}
@@ -839,14 +840,7 @@ function Summarizer() {
       {summary && (
         <div className="summary-output">
           <div className="summary-text-container">
-            {summary.split('\n').map((line, idx) => {
-              if (line.startsWith('### ')) return <h3 key={idx} className="summary-h3">{line.substring(4)}</h3>;
-              if (line.startsWith('**')) return <p key={idx} className="summary-strong">{line.substring(2, line.length - (line.endsWith('**') ? 2 : 0))}</p>;
-              if (line.startsWith('*   ')) return <li key={idx} className="summary-li">{line.substring(4)}</li>;
-              if (line.startsWith('*Note:*')) return <p key={idx} className="summary-note"><em>{line.substring(1)}</em></p>;
-              if (line.trim() === '') return <br key={idx} />;
-              return <p key={idx}>{line}</p>;
-            })}
+            <ReactMarkdown>{summary}</ReactMarkdown>
           </div>
           <div className="summary-actions">
             <button className="action-button" onClick={handleCopySummary}><FaCopy /> Copy</button>
