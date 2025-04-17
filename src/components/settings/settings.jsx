@@ -57,7 +57,6 @@ function Settings({ theme, toggleTheme }) {
 
     // --- Language Model Data ---
     const languageModels = [
-        // Use info text from reference image
         { id: 'claude-sonnet', name: 'Claude Sonnet', tag: 'Premium', icon: <FaStar />, info: 'Balanced speed and intelligence'},
         { id: 'llama-3.38B', name: 'LLaMa 3.3 (Meta)', info: 'General purpose chat' }, // Adjusted name slightly
         { id: 'mistral', name: 'Mistral', info: 'Advanced chat tasks' },
@@ -71,8 +70,8 @@ function Settings({ theme, toggleTheme }) {
             {/* <h3>Settings</h3> */}
 
             {/* Language Model Selection FIRST */}
-            <div className="setting-group">
-                <label className="setting-label">LANGUAGE MODELS</label> {/* Uppercase Label */}
+            {/* <div className="setting-group">
+                <label className="setting-label">LANGUAGE MODELS</label> 
                 {languageModels.map(model => (
                     <div
                         key={model.id}
@@ -87,18 +86,17 @@ function Settings({ theme, toggleTheme }) {
                         <input type="radio" name="languageModel" value={model.id} checked={selectedModel === model.id} readOnly className="model-radio" />
                     </div>
                 ))}
-            </div>
+            </div> */}
 
             {/* Other Settings Buttons SECOND */}
-             <div className="setting-group other-settings">
-                 {/* Use secondary-action-button class directly */}
+             {/* <div className="setting-group other-settings">
                  <button className="secondary-action-button">
                      <FaHistory className="setting-icon" /> Conversational History
                  </button>
                  <button className="secondary-action-button">
                      <FaCog className="setting-icon" /> Advanced Settings
                  </button>
-            </div>
+            </div> */}
 
              {/* Theme Toggle Button THIRD */}
              <div className="setting-group theme-toggle-group">

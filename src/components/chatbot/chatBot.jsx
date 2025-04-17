@@ -291,10 +291,16 @@ function ChatBot({ setActiveView, VIEWS }) {
 
       } else {
         // For all other inputs, hit the QA endpoint
-        const qaRes = await fetch('http://localhost:8000/qa', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ url: pageUrl, content: "", question: userInput })
+               
+        const qaRes = await fetch("http://localhost:8000/qa", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            session_id: "012",
+            question:    userInput,
+            url:        pageUrl,
+            content:    ""            // if you have any pre‑scraped content, drop it here
+          }),
         });
         const qaData = await qaRes.json();
 
