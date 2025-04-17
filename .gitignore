@@ -51,7 +51,7 @@ public/
 .svelte-kit/
 
 # Vite cache
-dist/
+
 .vite/
 
 # Storybook build outputs
