@@ -236,6 +236,7 @@ const coeusLogoPath = '/icons/coeus-logo-purple.png';
 
 function ChatBot({ setActiveView, VIEWS }) {
   const [messages, setMessages] = useState([]);
+  const [responseText, setResponseText] = useState('');
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [shapeBasedOnPage, setShapeBasedOnPage] = useState(true);
@@ -259,135 +260,10 @@ function ChatBot({ setActiveView, VIEWS }) {
     });
   };
 
-  // // Instead of simulation, get the answer from your API:
-  // const getBotResponse = async (userInput) => {
-  //   setIsLoading(true);
-  //   try {
-  //     // Retrieve the active tab's URL
-  //     const pageUrl = await fetchActiveTabUrl();
-      
-  //     // Build the payload following your API schema:
-  //     // For QA: { url: string, content: string, question: string }
-  //     const payload = {
-  //       url: pageUrl,
-  //       content: "", // Optionally: you could pass additional page content if desired.
-  //       question: userInput
-  //     };
-
-  //     // Call your QA endpoint (replace with your actual API URL)
-  //     const response = await fetch('http://localhost:8000/qa', {
-  //       method: 'POST',
-  //       headers: { 'Content-Type': 'application/json' },
-  //       credentials: 'include', // Include cookies if your server requires them
-  //       body: JSON.stringify(payload)
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error(`API error: ${response.status} ${response.statusText}`);
-  //     }
-  //     const data = await response.json();
-      
-  //     // According to your API schema, expect { answer: string }
-  //     const botResponse = {
-  //       id: Date.now() + Math.random(),
-  //       sender: 'bot',
-  //       text: data.answer,
-  //       isSummary: false,
-  //       showSuggestions: false,
-  //       suggestions: []
-  //     };
-  //     setIsLoading(false);
-  //     return botResponse;
-  //   } catch (err) {
-  //     setIsLoading(false);
-  //     return {
-  //       id: Date.now() + Math.random(),
-  //       sender: 'bot',
-  //       text: `Error: ${err.message}`,
-  //       isSummary: false,
-  //       showSuggestions: false,
-  //       suggestions: []
-  //     };
-  //   }
-  // };
-  // const getBotResponse = async (userInput) => {
-  //   setIsLoading(true);
-  //   const lowerInput = userInput.toLowerCase();
-  
-  //   // Default bot response object
-  //   let response = {
-  //     id: Date.now() + Math.random(),
-  //     sender: 'bot',
-  //     text: '',
-  //     isSummary: false,
-  //     showSuggestions: false,
-  //     suggestions: []
-  //   };
-  
-  //   try {
-  //     if (lowerInput.includes("summarize this page")) {
-  //       response.text = `Okay, this page seems to be about AI technology and ChatGPT applications...`;
-  //       response.showSuggestions = true;
-  //       response.suggestions = ["Suggest questions?"];
-  //     } else if (lowerInput.includes("suggest questions?")) {
-  //       response.text = "Here are some relevant questions:";
-  //       response.showSuggestions = true;
-  //       response.suggestions = [
-  //         "What is the purpose of the 'NextGenAI Stories' section?",
-  //         "What is the relationship between Lyndon Batoris & Sora? Leo?",
-  //         "How is ChatGPT being used in the \"custom math tutor\"?"
-  //       ];
-  //     } else if (lowerInput.includes("nextgenai")) {
-  //       response.text = "The 'NextGenAI Stories' section showcases real-world applications of AI across industries...";
-  //       response.showSuggestions = true;
-  //       response.suggestions = ["Elaborate more?"];
-  //     } else if (lowerInput.includes("relationship between lyndon") || lowerInput.includes("batoris") || lowerInput.includes("sora")) {
-  //       response.text = "Info on Lyndon Batoris & Sora/Leo's relationship requires specific context from the narrative...";
-  //       response.showSuggestions = true;
-  //       response.suggestions = ["Elaborate more?"];
-  //     } else if (lowerInput.includes("custom math tutor")) {
-  //       response.text = "ChatGPT acts as the conversational engine in the custom math tutor, guiding students interactively...";
-  //       response.showSuggestions = true;
-  //       response.suggestions = ["Elaborate more?"];
-  //     } else if (lowerInput.includes("elaborate more")) {
-  //       response.text = "This section emphasizes innovation by sharing impactful stories from education, healthcare, and customer service domains...";
-  //     } else {
-  //       // Existing API call preserved here
-  //       const pageUrl = await fetchActiveTabUrl();
-  
-  //       const payload = {
-  //         url: pageUrl,
-  //         content: "",
-  //         question: userInput
-  //       };
-  
-  //       const apiResponse = await fetch('http://localhost:8000/qa', {
-  //         method: 'POST',
-  //         headers: { 'Content-Type': 'application/json' },
-  //         credentials: 'include',
-  //         body: JSON.stringify(payload)
-  //       });
-  
-  //       if (!apiResponse.ok) {
-  //         throw new Error(`API error: ${apiResponse.status} ${apiResponse.statusText}`);
-  //       }
-  
-  //       const data = await apiResponse.json();
-  //       response.text = data.answer || "I couldn't find an answer for your query.";
-  //     }
-  
-  //     setIsLoading(false);
-  //     return response;
-  //   } catch (err) {
-  //     setIsLoading(false);
-  //     response.text = `Error: ${err.message}`;
-  //     return response;
-  //   }
-  // };
   const getBotResponse = async (userInput) => {
     setIsLoading(true);
     const lowerInput = userInput.toLowerCase();
-  
+
     let response = {
       id: Date.now() + Math.random(),
       sender: 'bot',
@@ -396,11 +272,11 @@ function ChatBot({ setActiveView, VIEWS }) {
       showSuggestions: false,
       suggestions: []
     };
-  
+
     try {
       const pageUrl = await fetchActiveTabUrl();
-  
-      if(lowerInput.includes("suggest questions?")) {
+
+      if (lowerInput.includes("suggest questions?")) {
         // Hit questions endpoint to get dynamic questions
         const questionsRes = await fetch('http://localhost:8000/questions', {
           method: 'POST',
@@ -408,11 +284,11 @@ function ChatBot({ setActiveView, VIEWS }) {
           body: JSON.stringify({ url: pageUrl, content: "" })
         });
         const questionsData = await questionsRes.json();
-  
+
         response.text = "Here are some relevant questions:";
         response.showSuggestions = true;
         response.suggestions = questionsData.questions;
-  
+
       } else {
         // For all other inputs, hit the QA endpoint
         const qaRes = await fetch('http://localhost:8000/qa', {
@@ -421,10 +297,10 @@ function ChatBot({ setActiveView, VIEWS }) {
           body: JSON.stringify({ url: pageUrl, content: "", question: userInput })
         });
         const qaData = await qaRes.json();
-  
+
         response.text = qaData.answer || "I couldn't find an answer for your query.";
       }
-  
+
       setIsLoading(false);
       return response;
     } catch (err) {
@@ -433,7 +309,7 @@ function ChatBot({ setActiveView, VIEWS }) {
       return response;
     }
   };
-  
+
 
   const handleSend = async () => {
     const trimmed = input.trim();
@@ -483,6 +359,14 @@ function ChatBot({ setActiveView, VIEWS }) {
                   <div className="bot-message-actions">
                     <button className="user-action-button" title="Edit" onClick={() => setInput(msg.text)}><FaEdit /></button>
                     <button className="user-action-button" title="Copy" onClick={() => navigator.clipboard.writeText(msg.text)}><FaRegCopy /></button>
+                    <button
+                      className="user-action-button"
+                      title="Elaborate"
+                      onClick={() => onClickElaborate(responseText)}
+                    >
+                      <FaThumbsUp />
+                    </button>
+
                   </div>
                 )}
                 {msg.sender === 'user' && !isLoading && (

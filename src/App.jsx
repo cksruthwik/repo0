@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from './components/Sidebar/Sidebar'; // Assuming path is correct
-import ChatBot from './components/chatbot/chatbot'; // Corrected to match file casing
-import Summarizer from './components/Summarizer/Summarizer'; // Assuming path is correct
-import MindMapper from './components/MindMapper/MindMapper'; // Assuming path is correct
+import ChatBot from './components/chatbot/chatBot'; // Corrected to match file casing
+import Summarizer from './components/summarizer/summarizer'; // Assuming path is correct
+import MindMapper from './components/mindmapper/mindmapper'; // Assuming path is correct
 import Settings from './components/Settings/Settings'; // Assuming path is correct
 import './App.css';
-
+ 
 // --- Import Icons ---
 import { HiMenu } from 'react-icons/hi';
 import { IoChatbox, IoClose } from 'react-icons/io5';
-
+ 
 // --- View Definitions ---
 export const VIEWS = {
   CHATBOT: 'Chat Bot',
@@ -17,19 +17,19 @@ export const VIEWS = {
   MIND_MAP: 'Mind Mapping',
   SETTINGS: 'Settings',
 };
-
+ 
 // --- Logo Path ---
 const coeusLogoPath = '/icons/icon128.png'; // Verify path
-
+ 
 // --- Theme ---
 const DEFAULT_THEME = 'light'; // Start with light theme
-
+ 
 function App() {
   const [activeView, setActiveView] = useState(VIEWS.CHATBOT);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [chatbotKey, setChatbotKey] = useState(Date.now());
   const [theme, setTheme] = useState(DEFAULT_THEME); // Add theme state
-
+ 
   // --- Load Theme on Mount ---
   useEffect(() => {
     let isMounted = true;
@@ -47,7 +47,7 @@ function App() {
     } else { setTheme(DEFAULT_THEME); }
      return () => { isMounted = false; };
   }, []);
-
+ 
   // Handle logo loading errors
   const handleLogoError = (e) => {
     e.target.onerror = null;
@@ -55,7 +55,7 @@ function App() {
     const placeholder = e.target.nextElementSibling;
     if (placeholder) placeholder.style.display = 'inline';
   };
-
+ 
   // --- Toggle Theme Function ---
   const toggleTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
@@ -67,7 +67,7 @@ function App() {
     }
   };
   // --- End Toggle Theme Function ---
-
+ 
   const renderView = () => {
     switch (activeView) {
       case VIEWS.CHATBOT:
@@ -83,15 +83,15 @@ function App() {
         return <ChatBot key={chatbotKey} setActiveView={setActiveView} VIEWS={VIEWS} />;
     }
   };
-
+ 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
-
+ 
    const resetChat = () => {
         setActiveView(VIEWS.CHATBOT);
         setChatbotKey(Date.now());
         if (isSidebarOpen) { setIsSidebarOpen(false); }
    };
-
+ 
   return (
     // Add theme class and sidebar class
     <div className={`app-container ${theme}-theme ${isSidebarOpen ? 'sidebar-visible' : ''}`}>
@@ -105,8 +105,8 @@ function App() {
         </div>
         <div className="header-right">
           <div className="window-controls">
-            <span onClick={() => window.open('https://www.dummyadmin.com', '_blank')}
-                title="Export" 
+            <span onClick={() => window.open('https://www.feuji.com', '_blank')}
+                title="Export"
                 style={{ cursor: 'pointer' }}>
                 📤
               </span>
@@ -115,7 +115,7 @@ function App() {
           </div>
         </div>
       </header>
-
+ 
       <Sidebar
         activeView={activeView}
         setActiveView={setActiveView}
@@ -123,14 +123,14 @@ function App() {
         isOpen={isSidebarOpen}
         toggleSidebar={toggleSidebar}
       />
-
+ 
       {isSidebarOpen && <div className="sidebar-overlay" onClick={toggleSidebar}></div>}
-
+ 
       <main className="view-area">
         {renderView()}
       </main>
     </div>
   );
 }
-
+ 
 export default App;
