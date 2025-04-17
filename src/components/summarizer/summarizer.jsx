@@ -727,7 +727,7 @@ function Summarizer() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       // Send the URL and an empty content field so that the API can scrape if needed
-      body: JSON.stringify({ url, content: "" }),
+      body: JSON.stringify({ url: url, content: "" }),
     });
     if (!response.ok) {
       throw new Error(`API error: ${response.status} ${response.statusText}`);

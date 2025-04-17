@@ -278,7 +278,7 @@ function ChatBot({ setActiveView, VIEWS }) {
 
       if (lowerInput.includes("suggest questions?")) {
         // Hit questions endpoint to get dynamic questions
-        const questionsRes = await fetch('http://localhost:8000/questions', {
+        const questionsRes = await fetch('http://localhost:8001/questions', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ url: pageUrl, content: "" })
@@ -292,7 +292,7 @@ function ChatBot({ setActiveView, VIEWS }) {
       } else {
         // For all other inputs, hit the QA endpoint
                
-        const qaRes = await fetch("http://localhost:8000/qa", {
+        const qaRes = await fetch("http://localhost:8001/qa", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
