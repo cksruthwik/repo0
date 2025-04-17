@@ -723,7 +723,7 @@ function Summarizer() {
       });
     });
  
-    const response = await fetch('http://localhost:8000/summarize', {
+    const response = await fetch('http://localhost:8001/summarize', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       // Send the URL and an empty content field so that the API can scrape if needed
@@ -748,7 +748,7 @@ function Summarizer() {
       });
     });
   
-    const response = await fetch('http://localhost:8000/questions', {
+    const response = await fetch('http://localhost:8001/questions', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ url, content: "" })  // we scrape in backend
