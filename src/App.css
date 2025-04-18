@@ -1,164 +1,164 @@
 .app-container {
-  display: flex; flex-direction: column;
-  width: 400px; height: 600px;
-  /* background removed - handled by theme class */
-  border-radius: 14px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-  overflow: hidden; position: relative;
-  transition: background 0.4s ease, color 0.4s ease; /* Smooth theme transition */
-}
-
-/* --- Light Theme (Original) --- */
-.app-container.light-theme {
-  background: linear-gradient(to bottom, #FFEDE1 0%, #FFF9F7 70%, #FFFFFF 100%);
-  color: #333; /* Default text */
-}
-.light-theme .header-title { color: #e15707; } /* Purple title in light */
-
-
-/* --- Dark Theme Styles --- */
-.app-container.dark-theme {
-  /* Dark Blue/Grey Gradient Example */
-  background: linear-gradient(to bottom, #2c3e50 0%, #1a252f 70%, #11181f 100%);
-  color: #d8e0e7; /* Lighter default text for dark */
-}
-.dark-theme h2, .dark-theme h3, .dark-theme h4 { color: #ffffff; }
-.dark-theme p, .dark-theme label, .dark-theme li, .dark-theme small,
-.dark-theme span:not(.model-tag):not(.sidebar-label):not(.header-title) { color: #c0c5ce; }
-.dark-theme .header-title { color: #e15707; } /* Lighter purple */
-.dark-theme .hamburger-button { color: #aaa; }
-.dark-theme .hamburger-button:hover { color: #eee; background-color: rgba(255, 255, 255, 0.08); }
-.dark-theme .window-controls { color: #777; }
-.dark-theme .window-controls span:hover { color: #bbb; background-color: rgba(255, 255, 255, 0.08); }
-.dark-theme .info-icon { color: #aaa; }
-.dark-theme .info-icon:hover { color: #ddd; }
-.dark-theme .label-icon { color: #aaa;}
-
-/* Dark Scrollbars (Webkit) - Optional but nice */
-.dark-theme ::-webkit-scrollbar { width: 8px; }
-.dark-theme ::-webkit-scrollbar-track { background: #2c3e50; border-radius: 4px; }
-.dark-theme ::-webkit-scrollbar-thumb { background-color: #556a80; border-radius: 4px; border: 2px solid #2c3e50; }
-.dark-theme ::-webkit-scrollbar-thumb:hover { background-color: #778ca3; }
-
-.app-header { display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; flex-shrink: 0; position: relative; z-index: 10; }
-.header-left, .header-center, .header-right { display: flex; align-items: center; flex: 1; }
-.header-left { justify-content: flex-start; }
-.header-center { justify-content: center; flex-grow: 2; gap: 8px; flex-basis: 0; }
-.header-right { justify-content: flex-end; }
-.hamburger-button { background: none; border: none; font-size: 1.6em; color: #777; padding: 5px; cursor: pointer; line-height: 1; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: background-color 0.2s, color 0.2s; }
-.hamburger-button:hover { color: #333; background-color: rgba(0, 0, 0, 0.05); }
-.header-logo { height: 30px; width: 30px; object-fit: contain; display: inline-block; vertical-align: middle; }
-.header-title { font-size: 1.4em; font-weight: 600; color: #e15707; display: inline; vertical-align: middle; }
-.window-controls { display: flex; align-items: center; gap: 10px; font-size: 1.1em; color: #b0b0b0; }
-.window-controls span { cursor: pointer; display: flex; align-items: center; padding: 3px; border-radius: 4px; transition: background-color 0.2s, color 0.2s; }
-.window-controls span:hover { color: #777; background-color: rgba(0, 0, 0, 0.05); }
-.view-area { flex-grow: 1; overflow: hidden; display: flex; flex-direction: column; position: relative; }
-.sidebar-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.3); z-index: 90; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0s linear 0.3s; }
-.app-container.sidebar-visible .sidebar-overlay { opacity: 1; visibility: visible; transition: opacity 0.3s ease, visibility 0s linear 0s; }
-
-*:disabled {
-    background-color: #5039a0;
-    box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
-}
-.summarize-button:disabled {
-    background-color: #ccc; color: #777; cursor: not-allowed; box-shadow: none;
-}
-
-/* Error Message */
-.error-message {
-  color: #c62828; background-color: #ffebee; border: 1px solid #ef9a9a;
-  padding: 10px; border-radius: 6px; font-size: 0.9em; text-align: center;
-  margin-top: 5px; flex-shrink: 0; /* Prevent shrinking */
-}
-
-/* Loading Indicator Text */
-.loading-indicator {
-    text-align: center; color: #888; font-style: italic;
-    margin-top: 10px; flex-shrink: 0; /* Prevent shrinking */
-}
-
-/* Summary Output Area (White box) */
-.summary-output {
-  margin-top: 10px;
-  padding: 0; /* Remove padding here, apply to children */
-  background-color: #ffffff;
-  border: 1px solid #e0e0e0; /* Slightly more visible border */
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.06);
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  /* Important: Limit height and allow internal scroll */
-  max-height: 250px; /* Adjust this max-height as needed */
-  overflow: hidden; /* Hide direct overflow */
-  flex-shrink: 1; /* Allow shrinking if space is tight */
-  min-height: 80px; /* Give it some base height */
-}
-
-/* Scrollable container for JUST the summary text */
-.summary-text-container {
-    overflow-y: auto; /* Enable vertical scrolling */
-    padding: 15px; /* Add padding inside the scrollable area */
-    flex-grow: 1; /* Allow text container to take available space */
-}
-
-/* Summary Paragraph inside scrollable area */
-.summary-output .summary-text-container p {
-    line-height: 1.55;
-    color: #333;
-    font-size: 0.95em;
-    margin: 0; /* Remove default paragraph margin */
-    text-align: left;
-}
-
-/* Action buttons below summary text (fixed within summary-output) */
-.summary-actions {
-    padding: 10px 15px; /* Padding for actions area */
-    border-top: 1px dashed #ccc;
+    display: flex; flex-direction: column;
+    width: 400px; height: 600px;
+    /* background removed - handled by theme class */
+    border-radius: 14px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    overflow: hidden; position: relative;
+    transition: background 0.4s ease, color 0.4s ease; /* Smooth theme transition */
+  }
+  
+  /* --- Light Theme (Original) --- */
+  .app-container.light-theme {
+    background: linear-gradient(to bottom, #FFEDE1 0%, #FFF9F7 70%, #FFFFFF 100%);
+    color: #333; /* Default text */
+  }
+  .light-theme .header-title { color: #e15707; } /* Purple title in light */
+  
+  
+  /* --- Dark Theme Styles --- */
+  .app-container.dark-theme {
+    /* Dark Blue/Grey Gradient Example */
+    background: linear-gradient(to bottom, #2c3e50 0%, #1a252f 70%, #11181f 100%);
+    color: #d8e0e7; /* Lighter default text for dark */
+  }
+  .dark-theme h2, .dark-theme h3, .dark-theme h4 { color: #ffffff; }
+  .dark-theme p, .dark-theme label, .dark-theme li, .dark-theme small,
+  .dark-theme span:not(.model-tag):not(.sidebar-label):not(.header-title) { color: #c0c5ce; }
+  .dark-theme .header-title { color: #e15707; } /* Lighter purple */
+  .dark-theme .hamburger-button { color: #aaa; }
+  .dark-theme .hamburger-button:hover { color: #eee; background-color: rgba(255, 255, 255, 0.08); }
+  .dark-theme .window-controls { color: #777; }
+  .dark-theme .window-controls span:hover { color: #bbb; background-color: rgba(255, 255, 255, 0.08); }
+  .dark-theme .info-icon { color: #aaa; }
+  .dark-theme .info-icon:hover { color: #ddd; }
+  .dark-theme .label-icon { color: #aaa;}
+  
+  /* Dark Scrollbars (Webkit) - Optional but nice */
+  .dark-theme ::-webkit-scrollbar { width: 8px; }
+  .dark-theme ::-webkit-scrollbar-track { background: #2c3e50; border-radius: 4px; }
+  .dark-theme ::-webkit-scrollbar-thumb { background-color: #556a80; border-radius: 4px; border: 2px solid #2c3e50; }
+  .dark-theme ::-webkit-scrollbar-thumb:hover { background-color: #778ca3; }
+  
+  .app-header { display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; flex-shrink: 0; position: relative; z-index: 10; }
+  .header-left, .header-center, .header-right { display: flex; align-items: center; flex: 1; }
+  .header-left { justify-content: flex-start; }
+  .header-center { justify-content: center; flex-grow: 2; gap: 8px; flex-basis: 0; }
+  .header-right { justify-content: flex-end; }
+  .hamburger-button { background: none; border: none; font-size: 1.6em; color: #777; padding: 5px; cursor: pointer; line-height: 1; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: background-color 0.2s, color 0.2s; }
+  .hamburger-button:hover { color: #333; background-color: rgba(0, 0, 0, 0.05); }
+  .header-logo { height: 30px; width: 30px; object-fit: contain; display: inline-block; vertical-align: middle; }
+  .header-title { font-size: 1.4em; font-weight: 600; color: #e15707; display: inline; vertical-align: middle; }
+  .window-controls { display: flex; align-items: center; gap: 10px; font-size: 1.1em; color: #b0b0b0; }
+  .window-controls span { cursor: pointer; display: flex; align-items: center; padding: 3px; border-radius: 4px; transition: background-color 0.2s, color 0.2s; }
+  .window-controls span:hover { color: #777; background-color: rgba(0, 0, 0, 0.05); }
+  .view-area { flex-grow: 1; overflow: hidden; display: flex; flex-direction: column; position: relative; }
+  .sidebar-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.3); z-index: 90; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0s linear 0.3s; }
+  .app-container.sidebar-visible .sidebar-overlay { opacity: 1; visibility: visible; transition: opacity 0.3s ease, visibility 0s linear 0s; }
+  
+  *:disabled {
+      background-color: #5039a0;
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+  }
+  .summarize-button:disabled {
+      background-color: #ccc; color: #777; cursor: not-allowed; box-shadow: none;
+  }
+  
+  /* Error Message */
+  .error-message {
+    color: #c62828; background-color: #ffebee; border: 1px solid #ef9a9a;
+    padding: 10px; border-radius: 6px; font-size: 0.9em; text-align: center;
+    margin-top: 5px; flex-shrink: 0; /* Prevent shrinking */
+  }
+  
+  /* Loading Indicator Text */
+  .loading-indicator {
+      text-align: center; color: #888; font-style: italic;
+      margin-top: 10px; flex-shrink: 0; /* Prevent shrinking */
+  }
+  
+  /* Summary Output Area (White box) */
+  .summary-output {
+    margin-top: 10px;
+    padding: 0; /* Remove padding here, apply to children */
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0; /* Slightly more visible border */
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.06);
+    position: relative;
     display: flex;
-    gap: 12px;
-    justify-content: flex-start; /* Align left */
-    flex-shrink: 0; /* Prevent actions shrinking */
-    background-color: #ffffff; /* Match output background */
-    /* No margin-top needed as it's part of the flex layout */
-}
-
-.action-button {
-    background: none; border: none; color: #666; font-size: 0.85em;
-    cursor: pointer; padding: 5px 0px; display: flex; align-items: center;
-    gap: 5px; border-radius: 6px;
-}
-.action-button:hover { color: #000; background-color: #f0f0f0; padding: 5px 8px; }
-.action-button svg { font-size: 1.1em; }
-
-/* Suggestion Button Area below Summary Box */
-.summarizer-suggestion-area {
-    margin-top: 15px; /* Space above the button */
-    display: flex;
-    justify-content: center;
-    flex-shrink: 0; /* Prevent shrinking */
-}
-
-/* Follow-up Suggestion Button Style (match ChatBot style) */
-.suggestion-button-followup {
-    background-color: #ffffff; border: 1px solid #E0E0E0; color: #333; font-size: 0.9em;
-    padding: 8px 12px; border-radius: 8px; cursor: pointer;
-    transition: background-color 0.2s, box-shadow 0.2s, border-color 0.2s;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05); text-align: left;
-    width: auto; max-width: 90%; display: flex; align-items: center; gap: 8px;
-}
-.suggestion-button-followup:hover { background-color: #f5f5f5; border-color: #ccc; box-shadow: 0 2px 4px rgba(0,0,0,0.07); }
-.suggestion-button-followup .suggestion-icon { font-size: 1.2em; color: #888; flex-shrink: 0; }
-
-/* Removed empty ruleset for .app-container.dark-theme */
-/* ... (keep existing dark theme text/container overrides) ... */
-
-/* Dark Theme Specific Hovers */
-.dark-theme .hamburger-button:hover {
-    color: #eee;
-    background-color: #404854; /* Slightly lighter dark background */
-}
-.dark-theme .window-controls span:hover {
-    color: #bbb;
-    background-color: #404854; /* Slightly lighter dark background */
-}
+    flex-direction: column;
+    /* Important: Limit height and allow internal scroll */
+    max-height: 250px; /* Adjust this max-height as needed */
+    overflow: hidden; /* Hide direct overflow */
+    flex-shrink: 1; /* Allow shrinking if space is tight */
+    min-height: 80px; /* Give it some base height */
+  }
+  
+  /* Scrollable container for JUST the summary text */
+  .summary-text-container {
+      overflow-y: auto; /* Enable vertical scrolling */
+      padding: 15px; /* Add padding inside the scrollable area */
+      flex-grow: 1; /* Allow text container to take available space */
+  }
+  
+  /* Summary Paragraph inside scrollable area */
+  .summary-output .summary-text-container p {
+      line-height: 1.55;
+      color: #333;
+      font-size: 0.95em;
+      margin: 0; /* Remove default paragraph margin */
+      text-align: left;
+  }
+  
+  /* Action buttons below summary text (fixed within summary-output) */
+  .summary-actions {
+      padding: 10px 15px; /* Padding for actions area */
+      border-top: 1px dashed #ccc;
+      display: flex;
+      gap: 12px;
+      justify-content: flex-start; /* Align left */
+      flex-shrink: 0; /* Prevent actions shrinking */
+      background-color: #ffffff; /* Match output background */
+      /* No margin-top needed as it's part of the flex layout */
+  }
+  
+  .action-button {
+      background: none; border: none; color: #666; font-size: 0.85em;
+      cursor: pointer; padding: 5px 0px; display: flex; align-items: center;
+      gap: 5px; border-radius: 6px;
+  }
+  .action-button:hover { color: #000; background-color: #f0f0f0; padding: 5px 8px; }
+  .action-button svg { font-size: 1.1em; }
+  
+  /* Suggestion Button Area below Summary Box */
+  .summarizer-suggestion-area {
+      margin-top: 15px; /* Space above the button */
+      display: flex;
+      justify-content: center;
+      flex-shrink: 0; /* Prevent shrinking */
+  }
+  
+  /* Follow-up Suggestion Button Style (match ChatBot style) */
+  .suggestion-button-followup {
+      background-color: #ffffff; border: 1px solid #E0E0E0; color: #333; font-size: 0.9em;
+      padding: 8px 12px; border-radius: 8px; cursor: pointer;
+      transition: background-color 0.2s, box-shadow 0.2s, border-color 0.2s;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05); text-align: left;
+      width: auto; max-width: 90%; display: flex; align-items: center; gap: 8px;
+  }
+  .suggestion-button-followup:hover { background-color: #f5f5f5; border-color: #ccc; box-shadow: 0 2px 4px rgba(0,0,0,0.07); }
+  .suggestion-button-followup .suggestion-icon { font-size: 1.2em; color: #888; flex-shrink: 0; }
+  
+  /* Removed empty ruleset for .app-container.dark-theme */
+  /* ... (keep existing dark theme text/container overrides) ... */
+  
+  /* Dark Theme Specific Hovers */
+  .dark-theme .hamburger-button:hover {
+      color: #eee;
+      background-color: #404854; /* Slightly lighter dark background */
+  }
+  .dark-theme .window-controls span:hover {
+      color: #bbb;
+      background-color: #404854; /* Slightly lighter dark background */
+  }

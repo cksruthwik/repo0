@@ -3,7 +3,8 @@ import Sidebar from './components/Sidebar/Sidebar'; // Assuming path is correct
 import ChatBot from './components/chatbot/chatBot'; // Corrected to match file casing
 import Summarizer from './components/summarizer/summarizer'; // Assuming path is correct
 import MindMapper from './components/mindmapper/mindmapper'; // Assuming path is correct
-import Settings from './components/Settings/Settings'; // Assuming path is correct
+import Settings from './components/settings/settings'; // Assuming path is correct
+import Login from './components/Login/Login';
 import './App.css';
  
 // --- Import Icons ---
@@ -29,6 +30,8 @@ function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [chatbotKey, setChatbotKey] = useState(Date.now());
   const [theme, setTheme] = useState(DEFAULT_THEME); // Add theme state
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userEmail, setUserEmail] = useState('');
  
   // --- Load Theme on Mount ---
   useEffect(() => {
@@ -78,7 +81,7 @@ function App() {
         return <MindMapper />;
       case VIEWS.SETTINGS:
         // Pass theme state and toggle function to Settings
-        return <Settings theme={theme} toggleTheme={toggleTheme} />;
+        return <Settings theme={theme} toggleTheme={toggleTheme} onLogout={handleLogout} userEmail={userEmail} />;
       default:
         return <ChatBot key={chatbotKey} setActiveView={setActiveView} VIEWS={VIEWS} />;
     }
@@ -91,6 +94,23 @@ function App() {
         setChatbotKey(Date.now());
         if (isSidebarOpen) { setIsSidebarOpen(false); }
    };
+   const handleLogin = (email) => {
+    setIsAuthenticated(true);
+    setUserEmail(email); // Store logged-in user's email
+};
+
+const handleLogout = () => {
+    setIsAuthenticated(false);
+    setUserEmail(''); // Clear user email on logout
+    setActiveView(VIEWS.SETTINGS); // Optionally go back to settings or another default view after logout
+};
+// --- End Login/Logout Handlers ---
+
+// --- Conditional Rendering based on authentication ---
+if (!isAuthenticated) {
+    return <Login onLogin={handleLogin} />; // Render Login component if not authenticated
+}
+
  
   return (
     // Add theme class and sidebar class

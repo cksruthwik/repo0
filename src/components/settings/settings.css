@@ -92,3 +92,20 @@
   background-color: #404854;
   border-color: #5a6472;
 }
+
+
+.logout-button { /* Style for Logout button - Reusing primary-action-button class and adding specific logout styles */
+  /* Using primary-action-button styles (you can adjust if needed) */
+  padding: 10px 20px;
+  font-size: 1em;
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+  background-color: #dc3545; /* Red color for logout */
+  color: white;
+  transition: background-color 0.2s ease;
+}
+
+.logout-button:hover {
+  background-color: #c82333; /* Darker red on hover */
+}

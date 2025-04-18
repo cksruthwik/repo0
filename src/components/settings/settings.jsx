@@ -5,8 +5,8 @@ import { FaHistory, FaCog, FaStar, FaSun, FaMoon } from 'react-icons/fa'; // Rem
 
 const DEFAULT_MODEL = 'claude-sonnet';
 
-// Accept theme and toggleTheme props from App.jsx
-function Settings({ theme, toggleTheme }) {
+// Accept theme, toggleTheme, onLogout, userEmail props from App.jsx
+function Settings({ theme, toggleTheme, onLogout, userEmail }) {
     // --- State ---
     // Removed apiKey state
     const [selectedModel, setSelectedModel] = useState(DEFAULT_MODEL); // Initialize with default
@@ -71,7 +71,7 @@ function Settings({ theme, toggleTheme }) {
 
             {/* Language Model Selection FIRST */}
             {/* <div className="setting-group">
-                <label className="setting-label">LANGUAGE MODELS</label> 
+                <label className="setting-label">LANGUAGE MODELS</label>
                 {languageModels.map(model => (
                     <div
                         key={model.id}
@@ -89,14 +89,14 @@ function Settings({ theme, toggleTheme }) {
             </div> */}
 
             {/* Other Settings Buttons SECOND */}
-             {/* <div className="setting-group other-settings">
+             <div className="setting-group other-settings">
                  <button className="secondary-action-button">
                      <FaHistory className="setting-icon" /> Conversational History
                  </button>
-                 <button className="secondary-action-button">
+                 {/* <button className="secondary-action-button">
                      <FaCog className="setting-icon" /> Advanced Settings
-                 </button>
-            </div> */}
+                 </button> */}
+            </div>
 
              {/* Theme Toggle Button THIRD */}
              <div className="setting-group theme-toggle-group">
@@ -106,6 +106,14 @@ function Settings({ theme, toggleTheme }) {
                     Switch to {theme === 'light' ? 'Dark' : 'Light'} Mode
                 </button>
              </div>
+
+             {/* Account Settings Section with Logout Button */}
+             <div className="setting-group account-settings-group">
+                <label className="setting-label">Account</label>
+                <p>{userEmail || 'N/A'}</p> {/* Display user email */}
+                <button onClick={onLogout} className="logout-button primary-action-button">Logout</button> {/* Logout Button */}
+            </div>
+
 
              {/* API Key Section REMOVED */}
 
@@ -117,4 +125,6 @@ function Settings({ theme, toggleTheme }) {
         </div>
     );
 }
+
+
 export default Settings;

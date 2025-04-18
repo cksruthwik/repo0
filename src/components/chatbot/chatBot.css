@@ -72,23 +72,6 @@
   left : 0px;
 }
 
-.user-action-button {
-  margin-left: 8px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  color: #6b6b6b;
-  font-size: 0.95em;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  transition: color 0.2s ease;
-}
-
-.user-action-button:hover {
-  color: #4a00e0;
-}
-
 
 .user-action-button {
     background-color: rgba(230, 230, 230, 0.7); backdrop-filter: blur(2px);
@@ -203,10 +186,7 @@ input:checked + .slider:before { transform: translateX(18px); }
   padding: 14px 6px; /* INCREASED vertical padding MORE */
   font-size: 1em; color: #333;
 }
-.prompt-input::placeholder { color: #b0b0b0; }
-
-
-/* Send Button - Keep small size */
+.prompt-input::placeholder { color: #b0b0b0; }/* Send Button - Keep small size */
 .send-button {
   background-color: #F0F0F0; color: #b0b0b0; border: none; border-radius: 50%;
   width: 32px; height: 32px; font-size: 1.1em; line-height: 1; display: flex;

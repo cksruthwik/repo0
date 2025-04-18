@@ -1,0 +1,85 @@
+/* Login.css */
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    background-color: #e6eef7; /* White background for the card */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Slightly stronger shadow */
+    width: 350px;
+    margin: 50px auto; /* Center on page */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Example font, adjust if needed */
+}
+
+.login-container h2 {
+    margin-bottom: 25px;
+    color: #333;
+    font-size: 2em; /* Larger "Sign In" title */
+    font-weight: 600; /* Slightly bolder title */
+}
+
+.error-message {
+    color: #dc3545; /* Red error message color */
+    margin-bottom: 15px;
+    background-color: #f8d7da; /* Light red background for error */
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #f5c6cb; /* Light red border for error */
+}
+
+.login-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 20px; /* Increased spacing between form groups */
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px; /* Spacing below label */
+    font-weight: 500; /* Slightly bolder labels */
+    color: #555;
+    font-size: 1em; /* Label font size */
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px; /* Increased input padding */
+    border: 1px solid #ccc;
+    border-radius: 6px; /* More rounded input corners */
+    box-sizing: border-box;
+    font-size: 1em; /* Input font size */
+    color: #333; /* Input text color */
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #007bff; /* Highlight border on focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add focus shadow */
+}
+
+
+.login-button {
+    padding: 12px 25px; /* Adjusted button padding */
+    background-color: #cccdce; /* Blue button color */
+    color: white;
+    border: none;
+    border-radius: 6px; /* Rounded button corners */
+    cursor: pointer;
+    font-size: 1.1em; /* Slightly larger button text */
+    font-weight: 500; /* Button text weight */
+    transition: background-color 0.2s ease; /* Smooth hover transition */
+}
+
+.login-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+.login-button:active {
+    background-color: #004285; /* Even darker blue when active/pressed */
+    transform: translateY(1px); /* Slight press effect */
+}
